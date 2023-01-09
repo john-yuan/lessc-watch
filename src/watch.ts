@@ -7,7 +7,7 @@ import type { LesscWatchOptions } from './types'
 
 const dateTime = () => {
   const date = new Date()
-  const z = (n: number) => n < 10 ? `0${n}` : n
+  const z = (n: number) => (n < 10 ? `0${n}` : n)
   const YYYY = date.getFullYear()
   const MM = date.getMonth() + 1
   const DD = date.getDate()
@@ -30,7 +30,7 @@ export const watch = async (options: LesscWatchOptions) => {
   const watchOptions = options.watchOptions ? { ...options.watchOptions } : {}
   const lessOptions = options.lessOptions ? { ...options.lessOptions } : {}
   const watchCwd = watchOptions.cwd ? path.resolve(watchOptions.cwd) : process.cwd()
-  const delay = (typeof options.delay === 'number' && options.delay > 0) ? options.delay : 0
+  const delay = typeof options.delay === 'number' && options.delay > 0 ? options.delay : 0
 
   watchOptions.cwd = watchCwd
   watchOptions.ignoreInitial = watchOptions.ignoreInitial === undefined
@@ -39,7 +39,17 @@ export const watch = async (options: LesscWatchOptions) => {
   lessOptions.filename = lessOptions.filename === undefined ? entryFilename : lessOptions.filename
 
   const relativeOutputFilename = path.relative(process.cwd(), outputFilename)
-  const watchExtensions = ['.less', '.css', '.svg', '.png', '.jpg', '.jpeg', '.gif', '.webp', '.bmp']
+  const watchExtensions = [
+    '.less',
+    '.css',
+    '.svg',
+    '.png',
+    '.jpg',
+    '.jpeg',
+    '.gif',
+    '.webp',
+    '.bmp'
+  ]
 
   options.extraWatchExtensions?.forEach((extension) => {
     const lowercaseExtension = extension.trim().toLowerCase()
@@ -69,7 +79,7 @@ export const watch = async (options: LesscWatchOptions) => {
     })
   }
 
-  let mTriggers: { event: string; filename: string; }[] = []
+  let mTriggers: { event: string; filename: string }[] = []
 
   const build = async () => {
     const triggers = mTriggers
@@ -83,12 +93,14 @@ export const watch = async (options: LesscWatchOptions) => {
           if (!options.quiet) {
             const triggerDescList: string[] = []
 
-            triggers.map(({ event, filename }) => {
-              const triggerDesc = `${event} ${filename}`
-              if (!triggerDescList.includes(triggerDesc)) {
-                triggerDescList.push(triggerDesc)
-              }
-            }).join(', ')
+            triggers
+              .map(({ event, filename }) => {
+                const triggerDesc = `${event} ${filename}`
+                if (!triggerDescList.includes(triggerDesc)) {
+                  triggerDescList.push(triggerDesc)
+                }
+              })
+              .join(', ')
 
             const times = triggers.length > 1 ? ` x${triggers.length}` : ''
 
@@ -99,12 +111,15 @@ export const watch = async (options: LesscWatchOptions) => {
             console.log(`[${dateTime()}] Compiled to ${relativeOutputFilename}${triggerText}`)
           }
         }
-      }).catch((err) => {
+      })
+      .catch((err) => {
         if (lockTriggers === mTriggers) {
           try {
             const { line, column, message, filename } = err
             if (typeof filename === 'string') {
-              console.error(`[${dateTime()}] Error: ${message}. File: ${filename} (Line ${line}, Col ${column})`)
+              console.error(
+                `[${dateTime()}] Error: ${message}. File: ${filename} (Line ${line}, Col ${column})`
+              )
             } else {
               console.error(err)
             }
@@ -152,20 +167,18 @@ export const watch = async (options: LesscWatchOptions) => {
     return null
   }
 
-  return chokidar
-    .watch(watchDir, watchOptions)
-    .on('all', (event, filename) => {
-      if (event === 'unlinkDir') {
-        schedule(event, filename)
-      } else if (event === 'change' || event === 'add' || 'unlink') {
-        const lowercaseFilename = filename.toLowerCase()
-        const absoluteFilename = path.resolve(watchCwd, filename);
+  return chokidar.watch(watchDir, watchOptions).on('all', (event, filename) => {
+    if (event === 'unlinkDir') {
+      schedule(event, filename)
+    } else if (event === 'change' || event === 'add' || event === 'unlink') {
+      const lowercaseFilename = filename.toLowerCase()
+      const absoluteFilename = path.resolve(watchCwd, filename)
 
-        if (absoluteFilename !== outputFilename) {
-          if (watchExtensions.some((extension) => lowercaseFilename.endsWith(extension))) {
-            schedule(event, filename)
-          }
+      if (absoluteFilename !== outputFilename) {
+        if (watchExtensions.some((extension) => lowercaseFilename.endsWith(extension))) {
+          schedule(event, filename)
         }
       }
-    })
+    }
+  })
 }

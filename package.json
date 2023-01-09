@@ -1,29 +1,42 @@
 {
   "name": "lessc-watch",
-  "version": "0.0.1-alpha.1",
-  "description": "Watch and compile less files to a single css bundle file.",
+  "version": "0.0.1-alpha.2",
+  "description": "Watch the file changes and compile the less files to a single css bundle file.",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
-  "files": ["lib"],
+  "files": [
+    "lib"
+  ],
   "bin": {
     "lessc-watch": "./bin/lessc-watch"
   },
   "scripts": {
     "build": "tsc",
     "example": "tsc && node ./example/example.js",
+    "lint": "eslint --ext .js,.ts,.tsx ./src",
+    "lint:fix": "eslint --fix --ext .js,.ts,.tsx ./src",
+    "format": "prettier -u --write .",
     "prepublishOnly": "tsc"
   },
-  "keywords": ["less", "lessc", "watch"],
+  "keywords": [
+    "lessc",
+    "watch",
+    "less"
+  ],
   "author": "John Yuan",
   "license": "ISC",
   "devDependencies": {
+    "@eslint/create-config": "0.4.2",
     "@types/less": "^3.0.3",
     "@types/node": "^18.11.18",
-    "chokidar": "^3.5.3",
-    "less": "^4.1.3",
+    "@typescript-eslint/eslint-plugin": "^5.48.0",
+    "@typescript-eslint/parser": "^5.48.0",
+    "eslint": "^8.31.0",
+    "eslint-config-prettier": "^8.6.0",
+    "prettier": "^2.8.2",
     "typescript": "^4.9.4"
   },
-  "peerDependencies": {
+  "dependencies": {
     "chokidar": "^3.5.3",
     "less": "^4.1.3"
   }

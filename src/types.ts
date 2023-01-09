@@ -4,7 +4,7 @@ export interface LessOptions {
   /**
    * Filename of the main file to be passed to less.render()
    */
-  filename?: string;
+  filename?: string
 
   /**
    * If the file in an `@import` rule does not exist at that exact location,
@@ -14,7 +14,7 @@ export interface LessOptions {
    *
    * - `lessc --include-path=PATH1;PATH2`
    */
-  paths?: string[];
+  paths?: string[]
 
   /**
    * Allows you to add a path to every generated import and url in your css.
@@ -28,7 +28,7 @@ export interface LessOptions {
    * - `lessc -rp=resources/`
    * - `lessc --rootpath=resources/`
    */
-  rootpath?: string;
+  rootpath?: string
 
   /**
    * By default URLs are kept as-is (off), so if you import a file in a
@@ -44,7 +44,7 @@ export interface LessOptions {
    * - `lessc -ru=local`
    * - `lessc --rewrite-urls=local`
    */
-  rewriteUrls?: 'off' | 'all' | 'local';
+  rewriteUrls?: 'off' | 'all' | 'local'
 
   /**
    * Less has re-built math options to offer an in-between feature between the
@@ -70,7 +70,7 @@ export interface LessOptions {
    * - `lessc -m=[option]`
    * - `lessc --math=[option]`
    */
-  math?: 'always' | 'parens-division' | 'parens' | 'strict' | 'strict-legacy';
+  math?: 'always' | 'parens-division' | 'parens' | 'strict' | 'strict-legacy'
 
   /**
    * Defaults to off/false. Without this option, Less attempts to guess at
@@ -79,7 +79,7 @@ export interface LessOptions {
    * - `lessc -su=on`
    * - `lessc --strict-units=on`
    */
-  strictUnits?: boolean;
+  strictUnits?: boolean
 
   /**
    * @Deprecated
@@ -91,7 +91,7 @@ export interface LessOptions {
    *
    * - `lessc --js`
    */
-  javascriptEnabled?: boolean;
+  javascriptEnabled?: boolean
 
   /**
    * This option defines a variable that can be referenced by the file.
@@ -101,7 +101,7 @@ export interface LessOptions {
    *
    * - `lessc --global-var="color1=red"`
    */
-  globalVars?: Record<string, string>;
+  globalVars?: Record<string, string>
 
   /**
    * As opposed to the global variable option, this puts the declaration at the
@@ -110,7 +110,7 @@ export interface LessOptions {
    *
    * - `lessc --modify-var="color1=red"`
    */
-  modifyVars?: Record<string, string>;
+  modifyVars?: Record<string, string>
 
   /**
    * This option allows you to specify a argument to go on to every URL.
@@ -118,14 +118,14 @@ export interface LessOptions {
    *
    * - `lessc --url-args="cache726357"`
    */
-  urlArgs?: string;
+  urlArgs?: string
 
   /**
    * Runs the less parser and just reports errors without any output.
    *
    * - `lessc --lint -l`
    */
-  lint?: boolean;
+  lint?: boolean
 
   /**
    * @Deprecated
@@ -137,24 +137,24 @@ export interface LessOptions {
    *
    * - `lessc --compress -x`
    */
-  compress?: boolean;
+  compress?: boolean
 
   /**
    * Allow Imports from Insecure HTTPS Hosts
    *
    * - `lessc --insecure`
    */
-  insecure?: boolean;
+  insecure?: boolean
 }
 
 export interface LesscWatchOptions {
-  entry: string;
-  output: string;
-  watchDir?: string;
+  entry: string
+  output: string
+  watchDir?: string
   extraWatchExtensions?: string[]
-  delay?: number;
-  quiet?: boolean;
-  build?: boolean;
-  lessOptions?: LessOptions;
-  watchOptions?: WatchOptions;
+  delay?: number
+  quiet?: boolean
+  build?: boolean
+  lessOptions?: LessOptions
+  watchOptions?: WatchOptions
 }
