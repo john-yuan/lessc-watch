@@ -1,16 +1,20 @@
 # lessc-watch
 
-Watch the file changes and compile the less files to a single css bundle file.
+Watch the file changes and compile the [less](https://lesscss.org/usage) files to a single css bundle file.
 
 ## Getting started
 
 ```sh
-# Install `lessc-watch` as a local dev dependency.
+# Install `lessc-watch` as dev dependency locally.
 npm i lessc-watch --save-dev
 
 # Watch the `src` directory and build `src/index.less`
 # (and all its dependencies) to `dist/bundle.less`.
+# And set the `rewrite-urls` option of less to `all`.
 npx lessc-watch src/index.less dist/bundle.css -ru=all -d=src
+
+# Build `src/index.less` to `dist/bundle.css` and exit without watching
+npx lessc-watch src/index.less dist/bundle.css -ru=all --build
 ```
 
 ## Command options
