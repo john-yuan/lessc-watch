@@ -45,7 +45,7 @@ OPTIONS
   --help, -h           Print this message.
 ```
 
-## Programmatic Usage
+## Programmatic usage
 
 ```js
 const { resolve } = path
