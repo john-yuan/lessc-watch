@@ -101,7 +101,7 @@ const help = [
   '',
   '  --delay              The milliseconds to delay before building (default to 0).',
   '',
-  '  --quiet, -q          Disable all logs.',
+  '  --quiet, -q          Disable all logs (not including error message).',
   '',
   '  --help, -h           Print this message.'
 ].join('\n')

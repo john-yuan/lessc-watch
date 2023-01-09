@@ -5,15 +5,15 @@ Watch the file changes and compile the [less](https://lesscss.org/usage) files t
 ## Getting started
 
 ```sh
-# Install `lessc-watch` as dev dependency locally.
+# Install `lessc-watch` as a dev dependency locally.
 npm i lessc-watch --save-dev
 
 # Watch the `src` directory and build `src/index.less`
 # (and all its dependencies) to `dist/bundle.less`.
-# And set the `rewrite-urls` option of less to `all`.
+# Set the `rewrite-urls` option of less to `all`.
 npx lessc-watch src/index.less dist/bundle.css -ru=all -d=src
 
-# Build `src/index.less` to `dist/bundle.css` and exit without watching
+# Build `src/index.less` to `dist/bundle.css` and exit without watching.
 npx lessc-watch src/index.less dist/bundle.css -ru=all --build
 ```
 
@@ -40,7 +40,7 @@ OPTIONS
 
   --delay              The milliseconds to delay before building (default to 0).
 
-  --quiet, -q          Disable all logs.
+  --quiet, -q          Disable all logs (not including error message).
 
   --help, -h           Print this message.
 ```
@@ -79,7 +79,7 @@ interface LesscWatchOptions {
 
 ## Feedback
 
-Any feedback is welcome. Please feel free to file an issue.
+Any feedback is welcome. Please feel free to [file an issue](https://github.com/john-yuan/lessc-watch/issues/new).
 
 ## License
 
