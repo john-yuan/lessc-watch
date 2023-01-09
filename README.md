@@ -76,3 +76,7 @@ interface LesscWatchOptions {
 ## Feedback
 
 Any feedback is welcome. Please feel free to file an issue.
+
+## License
+
+[MIT](https://github.com/john-yuan/lessc-watch/blob/main/LICENSE)

@@ -5,7 +5,8 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "files": [
-    "lib"
+    "lib",
+    "LICENSE"
   ],
   "bin": {
     "lessc-watch": "./bin/lessc-watch"
@@ -46,6 +47,6 @@
     "url": "https://github.com/john-yuan/lessc-watch/issues"
   },
   "homepage": "https://github.com/john-yuan/lessc-watch#readme",
-  "author": "John Yuan",
+  "author": "JOHN YUAN",
   "license": "MIT"
 }
