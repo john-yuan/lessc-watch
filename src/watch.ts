@@ -163,7 +163,9 @@ export const watch = async (options: LesscWatchOptions) => {
   }
 
   if (options.build) {
-    console.log(`[${dateTime()}] Build succeeded`)
+    if (!options.quiet) {
+      console.log(`[${dateTime()}] Build succeeded`)
+    }
     return null
   }
 
