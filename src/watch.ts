@@ -90,7 +90,7 @@ export const watch = async (options: LesscWatchOptions) => {
     return compile()
       .then(() => {
         if (lockTriggers === mTriggers) {
-          if (!options.quiet) {
+          if (!options.quiet && !options.build) {
             const triggerDescList: string[] = []
 
             triggers
@@ -164,7 +164,7 @@ export const watch = async (options: LesscWatchOptions) => {
 
   if (options.build) {
     if (!options.quiet) {
-      console.log(`[${dateTime()}] Build succeeded`)
+      console.log(`[${dateTime()}] Build successfully (compiled to ${relativeOutputFilename}).`)
     }
     return null
   }

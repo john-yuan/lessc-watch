@@ -72,3 +72,7 @@ interface LesscWatchOptions {
   watchOptions?: WatchOptions
 }
 ```
+
+## Feedback
+
+Any feedback is welcome. Please feel free to file an issue.
