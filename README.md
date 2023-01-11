@@ -1,5 +1,9 @@
 # lessc-watch
 
+[![npm version](https://img.shields.io/npm/v/lessc-watch)](https://www.npmjs.com/package/lessc-watch)
+[![install size](https://packagephobia.now.sh/badge?p=lessc-watch)](https://packagephobia.now.sh/result?p=lessc-watch)
+[![npm downloads](https://img.shields.io/npm/dm/lessc-watch.svg)](http://npm-stat.com/charts.html?package=lessc-watch)
+
 Watch the file changes and compile the [less](https://lesscss.org/usage) files to a single css bundle file.
 
 ## Getting started
