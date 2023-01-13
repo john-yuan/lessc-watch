@@ -4,7 +4,7 @@
 [![install size](https://packagephobia.now.sh/badge?p=lessc-watch)](https://packagephobia.now.sh/result?p=lessc-watch)
 [![npm downloads](https://img.shields.io/npm/dm/lessc-watch.svg)](https://npm-stat.com/charts.html?package=lessc-watch)
 
-Watch the file changes and compile the [less](https://lesscss.org/usage) files to a single css bundle file.
+Watch for file changes and compile [less](https://lesscss.org/usage) files into a single css bundle file.
 
 ## Getting started
 
@@ -35,14 +35,16 @@ OPTIONS
 
   --rewrite-urls, -ru  The option of less "rewrite-urls".
 
-  --ext                The extra file extensions to watch (separated by comma).
-                       The base extensions are .less, .css, .svg, .png, .jpg,
-                       .jpeg, .gif, .webp, .bmp. You can use this option to
-                       add more.
+  --ext                The extra file extensions to watch (separated
+                       by comma). The base extensions are .less, .css,
+                       .svg, .png, .jpg, .jpeg, .gif, .webp, .bmp.
+                       You can use this option to add more.
 
-  --build              Build less to css without watching the file changes.
+  --build              Build less to css without watching for the
+                       file changes.
 
-  --delay              The milliseconds to delay before building (default to 0).
+  --delay              The milliseconds to delay before building
+                       (default to 0).
 
   --quiet, -q          Disable all logs (not including error message).
 

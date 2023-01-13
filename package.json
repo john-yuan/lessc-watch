@@ -1,7 +1,7 @@
 {
   "name": "lessc-watch",
-  "version": "1.0.1",
-  "description": "Watch the file changes and compile the less files to a single css bundle file.",
+  "version": "1.0.2",
+  "description": "Watch for file changes and compile less files into a single css bundle file.",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "files": [
