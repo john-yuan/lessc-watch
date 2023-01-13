@@ -37,7 +37,7 @@ OPTIONS
 
   --ext                The extra file extensions to watch (separated
                        by comma). The base extensions are .less, .css,
-                       .svg, .png, .jpg, .jpeg, .gif, .webp, .bmp.
+                       .svg, .png, .jpg, .jpeg, .gif, .webp and .bmp.
                        You can use this option to add more.
 
   --build              Build less to css without watching for the
