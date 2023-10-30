@@ -59,6 +59,7 @@ const allowedArgs = [
   '--delay',
   '--quiet',
   '-q',
+  '--global-vars',
   '--help',
   '-h'
 ]
@@ -91,6 +92,10 @@ const help = [
   '  --watch-dir, -d      The directory to watch (default to "./").',
   '',
   '  --rewrite-urls, -ru  The option of less "rewrite-urls".',
+  '',
+  '  --global-vars        Set less global variables (separated by comma).',
+  '                       Example 1: --global-vars=prefix=my-ui',
+  '                       Example 2: --global-vars=color1=red,color2=blue',
   '',
   '  --ext                The extra file extensions to watch (separated',
   '                       by comma). The base extensions are .less, .css,',
@@ -147,6 +152,22 @@ const rewriteUrls = args['--rewrite-urls'] || args['-ru']
 if (rewriteUrls) {
   options.lessOptions = options.lessOptions || {}
   options.lessOptions.rewriteUrls = rewriteUrls as 'all' | 'local' | 'off'
+}
+
+const globalVars = args['--global-vars']
+
+if (globalVars) {
+  const vars: Record<string, string> = {}
+
+  globalVars.split(/[&,]/).forEach((item) => {
+    const arr = item.split('=')
+    if (arr[0] && arr[1]) {
+      vars[arr[0]] = arr[1]
+    }
+  })
+
+  options.lessOptions = options.lessOptions || {}
+  options.lessOptions.globalVars = vars
 }
 
 const ext = args['--ext']

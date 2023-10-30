@@ -1,6 +1,6 @@
 {
   "name": "lessc-watch",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "Watch for file changes and compile less files into a single css bundle file.",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -14,6 +14,7 @@
   "scripts": {
     "build": "tsc",
     "example": "tsc && node ./example/example.js",
+    "example:cli": "tsc && ./bin/lessc-watch ./example/src/index.less ./example/dist/bundle-cli.css -d=./example/src -ru=all --global-vars=prefix=myui,primary-color=red",
     "lint": "eslint --ext .js,.ts,.tsx ./src",
     "lint:fix": "eslint --fix --ext .js,.ts,.tsx ./src",
     "format": "prettier -u --write .",

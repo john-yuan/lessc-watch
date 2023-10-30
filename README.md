@@ -35,6 +35,10 @@ OPTIONS
 
   --rewrite-urls, -ru  The option of less "rewrite-urls".
 
+  --global-vars        Set less global variables (separated by comma).
+                       Example 1: --global-vars=prefix=my-ui
+                       Example 2: --global-vars=color1=red,color2=blue
+
   --ext                The extra file extensions to watch (separated
                        by comma). The base extensions are .less, .css,
                        .svg, .png, .jpg, .jpeg, .gif, .webp and .bmp.
