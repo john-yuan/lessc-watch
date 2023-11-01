@@ -19,6 +19,11 @@ npx lessc-watch src/index.less dist/bundle.css -ru=all -d=src
 
 # Build `src/index.less` to `dist/bundle.css` and exit without watching.
 npx lessc-watch src/index.less dist/bundle.css -ru=all --build
+
+# Using config file
+npx lessc-watch -f ./config.json
+# or
+npx lessc-watch --config ./config.json
 ```
 
 ## Command options
@@ -29,6 +34,8 @@ COMMAND
 
 EXAMPLE
   lessc-watch src/index.less dist/bundle.css -d=src -ru=all
+  lessc-watch -f ./config.json
+  lessc-watch --config ./config.json
 
 OPTIONS
   --watch-dir, -d      The directory to watch (default to "./").
@@ -38,6 +45,11 @@ OPTIONS
   --global-vars        Set less global variables (separated by comma).
                        Example 1: --global-vars=prefix=my-ui
                        Example 2: --global-vars=color1=red,color2=blue
+
+  --config, -f         Specify the path of the config file.
+                       Please note that the path of the file or directory
+                       in the config file is relative to the path of the
+                       config file.
 
   --ext                The extra file extensions to watch (separated
                        by comma). The base extensions are .less, .css,
@@ -66,7 +78,10 @@ watch({
   output: resolve(__dirname, './dist/bundle.css'),
   watchDir: resolve(__dirname, './src'),
   lessOptions: {
-    rewriteUrls: 'all'
+    rewriteUrls: 'all',
+    globalVars: {
+      prefix: 'myui'
+    }
   }
 })
 ```
@@ -86,6 +101,24 @@ interface LesscWatchOptions {
   watchOptions?: WatchOptions
 }
 ```
+
+## Example config.json
+
+```json
+{
+  "entry": "./src/index.less",
+  "output": "./dist/bundle.css",
+  "watchDir": "./src",
+  "lessOptions": {
+    "rewriteUrls": "all",
+    "globalVars": {
+      "prefix": "myui"
+    }
+  }
+}
+```
+
+> Please note that the path of the file or directory in the config file is relative to the path of the config file.
 
 ## Feedback
 

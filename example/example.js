@@ -7,6 +7,8 @@ watch({
   watchDir: resolve(__dirname, './src'),
   lessOptions: {
     rewriteUrls: 'all',
-    compress: true
+    globalVars: {
+      prefix: 'myui'
+    }
   }
 })

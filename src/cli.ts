@@ -1,5 +1,7 @@
+import path from 'path'
 import { LesscWatchOptions } from './types'
 import { watch } from './watch'
+import { readFileSync } from 'fs'
 
 const resolverArgs = (argv: string[], allowedArgs?: string[]) => {
   const args: Record<string, string> = {}
@@ -48,10 +50,12 @@ const resolverArgs = (argv: string[], allowedArgs?: string[]) => {
 }
 
 const allowedArgs = [
-  '-h',
   '--help',
+  '-h',
   '--watch-dir',
   '-d',
+  '--config',
+  '-f',
   '--rewrite-urls',
   '-ru',
   '--ext',
@@ -87,6 +91,8 @@ const help = [
   '',
   'EXAMPLE',
   '  lessc-watch src/index.less dist/bundle.css -d=src -ru=all',
+  '  lessc-watch -f ./config.json',
+  '  lessc-watch --config ./config.json',
   '',
   'OPTIONS',
   '  --watch-dir, -d      The directory to watch (default to "./").',
@@ -96,6 +102,11 @@ const help = [
   '  --global-vars        Set less global variables (separated by comma).',
   '                       Example 1: --global-vars=prefix=my-ui',
   '                       Example 2: --global-vars=color1=red,color2=blue',
+  '',
+  '  --config, -f         Specify the path of the config file.',
+  '                       Please note that the path of the file or directory',
+  '                       in the config file is relative to the path of the',
+  '                       config file.',
   '',
   '  --ext                The extra file extensions to watch (separated',
   '                       by comma). The base extensions are .less, .css,',
@@ -122,22 +133,51 @@ if (hasArg('-h') || hasArg('--help')) {
   process.exit(0)
 }
 
-const options: LesscWatchOptions = {
-  entry: ignoredValues[0] || '',
-  output: ignoredValues[1] || ''
+const readConfigFile = (): LesscWatchOptions => {
+  const configFile = args['--config'] || args['-f']
+
+  if (configFile) {
+    try {
+      const configPath = path.resolve(process.cwd(), configFile)
+      const content = readFileSync(configPath).toString()
+      const config = (JSON.parse(content) || {}) as LesscWatchOptions
+      const configDir = path.dirname(configPath)
+
+      if (config.entry) {
+        config.entry = path.resolve(configDir, config.entry)
+      }
+
+      if (config.output) {
+        config.output = path.resolve(configDir, config.output)
+      }
+
+      if (config.watchDir) {
+        config.watchDir = path.resolve(configDir, config.watchDir)
+      }
+
+      return config
+    } catch (err) {
+      console.error(`ERROR: Failed reading config.`)
+      console.error(err)
+      process.exit(1)
+    }
+  }
+
+  return { entry: '', output: '' }
 }
+
+const options: LesscWatchOptions = readConfigFile()
+
+options.entry = ignoredValues[0] ? ignoredValues[0] : options.entry
+options.output = ignoredValues[1] ? ignoredValues[1] : options.output
 
 if (!options.entry) {
   console.error(`ERROR: No entry file specified.`)
-  console.log('')
-  printHelp()
   process.exit(1)
 }
 
 if (!options.output) {
   console.error(`ERROR: No output file specified.`)
-  console.log('')
-  printHelp()
   process.exit(1)
 }
 
@@ -157,7 +197,7 @@ if (rewriteUrls) {
 const globalVars = args['--global-vars']
 
 if (globalVars) {
-  const vars: Record<string, string> = {}
+  const vars: Record<string, string> = options.lessOptions?.globalVars || {}
 
   globalVars.split(/[&,]/).forEach((item) => {
     const arr = item.split('=')
@@ -173,7 +213,10 @@ if (globalVars) {
 const ext = args['--ext']
 
 if (ext) {
-  options.extraWatchExtensions = ext.split(/\s*,\s*/)
+  const extraWatchExtensions = options.extraWatchExtensions || []
+
+  extraWatchExtensions.push(...ext.split(/\s*,\s*/))
+  options.extraWatchExtensions = extraWatchExtensions
 }
 
 if (hasArg('--build')) {

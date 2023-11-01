@@ -1,0 +1,11 @@
+{
+  "entry": "./src/index.less",
+  "output": "./dist/bundle.css",
+  "watchDir": "./src",
+  "lessOptions": {
+    "rewriteUrls": "all",
+    "globalVars": {
+      "prefix": "myui"
+    }
+  }
+}
